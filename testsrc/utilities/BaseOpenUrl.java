@@ -14,7 +14,7 @@ public class BaseOpenUrl {
     //driver was a default member which cannot be accessed publicly in AddClient hence you make it public or protected to access in other flies
 
     @BeforeClass // this forces doLogin to run before every class
-    public void doLogin() {
+    public void openUrl() {
         String myUrl = "";
 
         ResourceBundle rb = ResourceBundle.getBundle("InvoicePlane"); //use resource bundle
