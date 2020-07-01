@@ -19,6 +19,8 @@ import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static uilities.Conversion.*;
+
 public class AddClientTest extends DoLogin {
 
 
@@ -27,20 +29,20 @@ public class AddClientTest extends DoLogin {
                               String add2,String city,String state,String zipcode,String country,
                               String gender ,String bdate,String phoneno,String faxno,
                               String mobile,String email,String web,String vat,
-                              String taxcode) throws ParseException, ClassNotFoundException, SQLException {
+                              String taxcode) throws ParseException, ClassNotFoundException, SQLException, InterruptedException {
 
         ArrayList<String> expected = new ArrayList<>();
 
         expected.add(clinetName);
         expected.add(surname);
-        expected.add(language);
+        expected.add(language.toLowerCase());
         expected.add(add1);
         expected.add(add2);
         expected.add(city);
         expected.add(state);
         expected.add(zipcode);
         expected.add(country);
-       // expected.add(gender);
+        expected.add(gender);
         expected.add(bdate);
         expected.add(phoneno);
         expected.add(faxno);
@@ -74,7 +76,9 @@ public class AddClientTest extends DoLogin {
         addclient.setTxtWeb(web);
         addclient.setTxtVatId(vat);
         addclient.setTxtTaxCode(taxcode);
-        //addclient.setGender(gender);
+        addclient.setGender(gender);
+
+        Thread.sleep(5000);
         addclient.setSave();
 
 
@@ -106,9 +110,25 @@ public class AddClientTest extends DoLogin {
             actual.add(rs.getString("client_city"));
             actual.add(rs.getString("client_state"));
             actual.add(rs.getString("client_zip"));
-            actual.add(rs.getString("client_country"));
-          //  actual.add(rs.getString("client_gender"));
-            actual.add(rs.getString("client_birthdate"));
+
+            String countryShortForm = rs.getString("client_country");
+            String countryFullForm = convertCountry(countryShortForm);
+
+            actual.add(countryFullForm);
+
+
+
+            actual.add(convertGender(rs.getString("client_gender")));
+
+            String dateFromDB = rs.getString("client_birthdate");
+            String dateExcelFormatted = convertdate(dateFromDB);
+
+
+            actual.add(dateExcelFormatted);
+
+
+
+
             actual.add(rs.getString("client_phone"));
             actual.add(rs.getString("client_fax"));
             actual.add(rs.getString("client_mobile"));

@@ -13,16 +13,22 @@ public class Login {
     // WebElement txtUser = driver.findElement(By.xpath("//input[@type='email']"));
 
     @FindBy (xpath = "//input[@type='email']")
-    WebElement txtUser; // using page factory
+    public WebElement txtUser; // using page factory
 
     @FindBy (xpath = "//input[@type='password']")
-    WebElement txtPassword;
+    public WebElement txtPassword;
 
     @FindBy (xpath = "//button[@type='submit']")
-    WebElement btnLogin;
+    public WebElement btnLogin;
+
+    @FindBy (xpath="//h1")
+    public WebElement loginHeading;
+
+    @FindBy (xpath="//*[@for='email']")
+    public WebElement lblEmail;
 
     @FindBy (xpath = "//a[contains(text(),'I forgot my password')]")
-    WebElement lnkForgotPass;
+    public WebElement lnkForgotPass;
 
     public Login(WebDriver driver)  // Login ob = new Login(drv)
     {

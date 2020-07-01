@@ -41,7 +41,8 @@ public class AddClient
 
     //FOR COUNTRY ->>>>>>> cause of drop down
     @FindBy (xpath="//span[@id='select2-client_country-container']") WebElement containerCountry;// to click dropdown of country
-    @FindBy (xpath="//input[@type='search']") WebElement txtSearch; // to click search the country in the text field
+    @FindBy (xpath="//input[@type='search']")
+    WebElement txtSearch; // to click search the country in the text field
     public void setContainerCountry(String country) //clicks on country tab and then searches the country
     {
         containerCountry.click();
@@ -111,12 +112,20 @@ public class AddClient
     }
 
     //FOR GENDER ->>>>>>> cause of drop down
-    @FindBy (xpath="//span[@id='select2-client_gender-container']") WebElement containerGender;
+    @FindBy (xpath="//span[@id='select2-client_gender-container']")
+    WebElement containerGender;
+
+    @FindBy (id="client_gender")
+    WebElement drpGender;
+
     public void setGender (String gender)
     {
-        containerGender.click();
+        Select selGender = new Select(drpGender);
+
+        selGender.selectByVisibleText(gender);
+       /* containerGender.click();
         txtSearch.sendKeys(gender);
-        driver.findElement(By.xpath("//li[normalize-space()='"+gender+"']")).click();
+        driver.findElement(By.xpath("//li[contains(text(),'"+gender+"')]")).click();*/
     }
 
     @FindBy (xpath="//span[@id='select2-client_gender-container']") WebElement txtCalender;
